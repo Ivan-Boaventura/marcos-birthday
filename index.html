@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Feliz Aniversário, Marcos Baloi 🎨</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Syne+Mono&family=Fraunces:ital,wght@0,100;0,300;0,700;1,100;1,300;1,700&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --purple:   #2D1248;
+      --purple-m: #3D1A5E;
+      --purple-l: #5C2D8A;
+      --orange:   #E8720C;
+      --orange-l: #F5934A;
+      --white:    #F0EBF8;
+      --grey:     #9B8FAA;
+      --dark:     #100820;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--dark);
+      color: var(--white);
+      font-family: 'Syne', sans-serif;
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    /* ── Cursor ── */
+    #cur {
+      width: 10px; height: 10px;
+      background: var(--orange);
+      border-radius: 50%;
+      position: fixed; pointer-events: none; z-index: 9999;
+      transform: translate(-50%,-50%);
+      transition: width .2s, height .2s, background .3s;
+    }
+    #cur-ring {
+      width: 40px; height: 40px;
+      border: 1px solid rgba(232,114,12,.4);
+      border-radius: 50%;
+      position: fixed; pointer-events: none; z-index: 9998;
+      transform: translate(-50%,-50%);
+      transition: transform .2s ease, width .3s, height .3s, border-color .3s;
+    }
+
+    /* ── Noise texture ── */
+    body::after {
+      content: '';
+      position: fixed; inset: 0; z-index: 9997; pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      opacity: 0.04;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 20px 48px;
+      display: flex; align-items: center; justify-content: space-between;
+      background: linear-gradient(to bottom, rgba(16,8,32,.95) 0%, transparent 100%);
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: 12px;
+    }
+    .nav-logo img {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    .nav-brand {
+      font-family: 'Syne Mono', monospace;
+      font-size: .7rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--grey);
+    }
+    .nav-tag {
+      font-family: 'Syne Mono', monospace;
+      font-size: .65rem;
+      letter-spacing: .25em;
+      text-transform: uppercase;
+      color: var(--orange);
+      border: 1px solid rgba(232,114,12,.3);
+      padding: 6px 14px;
+      border-radius: 2px;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      position: relative;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      overflow: hidden;
+    }
+
+    /* Animated gradient bg */
+    .hero-bg {
+      position: absolute; inset: 0; z-index: 0;
+      background:
+        radial-gradient(ellipse 70% 60% at 20% 50%, rgba(61,26,94,.7) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 50% at 80% 80%, rgba(232,114,12,.08) 0%, transparent 55%),
+        radial-gradient(ellipse 40% 40% at 70% 20%, rgba(92,45,138,.3) 0%, transparent 50%);
+      animation: bgPulse 8s ease-in-out infinite alternate;
+    }
+    @keyframes bgPulse {
+      0%   { opacity: .8; }
+      100% { opacity: 1; }
+    }
+
+    /* Grid lines decoration */
+    .hero-grid-lines {
+      position: absolute; inset: 0; z-index: 0; pointer-events: none;
+      background-image:
+        linear-gradient(rgba(232,114,12,.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(232,114,12,.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+
+    .hero-left {
+      position: relative; z-index: 1;
+      padding: 140px 48px 80px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .hero-eyebrow {
+      display: flex; align-items: center; gap: 14px;
+      font-family: 'Syne Mono', monospace;
+      font-size: .6rem;
+      letter-spacing: .35em;
+      text-transform: uppercase;
+      color: var(--orange);
+      animation: fadeUp 1s ease both;
+    }
+    .hero-eyebrow::before {
+      content: '';
+      display: block;
+      width: 40px; height: 1px;
+      background: var(--orange);
+    }
+
+    .hero-name {
+      margin-top: 32px;
+      font-family: 'Fraunces', serif;
+      font-weight: 100;
+      font-style: italic;
+      font-size: clamp(1rem, 2.5vw, 1.4rem);
+      color: var(--grey);
+      letter-spacing: .1em;
+      animation: fadeUp 1s .1s ease both;
+    }
+
+    .hero-title {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: clamp(3.5rem, 8vw, 7.5rem);
+      line-height: .9;
+      text-transform: uppercase;
+      letter-spacing: -.02em;
+      animation: fadeUp 1s .2s ease both;
+    }
+    .hero-title .line1 { color: var(--white); display: block; }
+    .hero-title .line2 {
+      display: block;
+      background: linear-gradient(135deg, var(--orange) 0%, var(--orange-l) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-title .line3 {
+      display: block;
+      -webkit-text-stroke: 1.5px rgba(240,235,248,.25);
+      color: transparent;
+    }
+
+    .hero-desc {
+      margin-top: 36px;
+      font-family: 'Fraunces', serif;
+      font-weight: 300;
+      font-style: italic;
+      font-size: clamp(1rem, 1.8vw, 1.25rem);
+      line-height: 1.7;
+      color: var(--grey);
+      max-width: 420px;
+      animation: fadeUp 1s .4s ease both;
+    }
+    .hero-desc strong { color: var(--orange); font-style: normal; font-weight: 600; }
+
+    .hero-cta {
+      margin-top: 48px;
+      display: flex; align-items: center; gap: 28px;
+      animation: fadeUp 1s .55s ease both;
+    }
+    .hero-date-badge {
+      background: linear-gradient(135deg, var(--orange) 0%, var(--orange-l) 100%);
+      color: #fff;
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: .75rem;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      padding: 12px 24px;
+      border-radius: 2px;
+    }
+    .hero-scroll {
+      font-family: 'Syne Mono', monospace;
+      font-size: .6rem;
+      letter-spacing: .25em;
+      text-transform: uppercase;
+      color: var(--grey);
+      display: flex; align-items: center; gap: 10px;
+    }
+    .hero-scroll::after {
+      content: '';
+      display: block;
+      width: 1px; height: 40px;
+      background: linear-gradient(to bottom, var(--grey), transparent);
+    }
+
+    .hero-right {
+      position: relative; z-index: 1;
+      overflow: hidden;
+    }
+    .hero-right img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+      filter: grayscale(20%) contrast(1.05);
+      transition: filter .5s;
+    }
+    .hero-right:hover img { filter: grayscale(0%) contrast(1.08); }
+
+    /* Gradient overlay on photo */
+    .hero-right::before {
+      content: '';
+      position: absolute; inset: 0; z-index: 1;
+      background:
+        linear-gradient(to right, var(--dark) 0%, transparent 30%),
+        linear-gradient(to top, var(--dark) 0%, transparent 25%);
+    }
+    /* Orange accent line */
+    .hero-right::after {
+      content: '';
+      position: absolute;
+      top: 0; right: 0;
+      width: 3px; height: 100%;
+      background: linear-gradient(to bottom, transparent, var(--orange), transparent);
+      z-index: 2;
+    }
+
+    .hero-counter {
+      position: absolute;
+      bottom: 32px; left: 28px; z-index: 2;
+      font-family: 'Syne Mono', monospace;
+      font-size: .6rem;
+      letter-spacing: .2em;
+      color: rgba(240,235,248,.4);
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── TICKER ── */
+    .ticker {
+      border-top: 1px solid rgba(232,114,12,.2);
+      border-bottom: 1px solid rgba(232,114,12,.2);
+      background: var(--purple);
+      overflow: hidden;
+      padding: 12px 0;
+    }
+    .ticker-track {
+      display: flex; gap: 0;
+      animation: ticker 25s linear infinite;
+      white-space: nowrap;
+    }
+    .ticker-item {
+      font-family: 'Syne', sans-serif;
+      font-weight: 600;
+      font-size: .8rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--white);
+      padding: 0 32px;
+      flex-shrink: 0;
+    }
+    .ticker-item.accent { color: var(--orange); }
+    @keyframes ticker {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* ── SOBRE ── */
+    .sobre {
+      padding: 120px 48px;
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 80px;
+      align-items: start;
+      position: relative;
+    }
+    .sobre::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(232,114,12,.3), transparent);
+    }
+
+    .sobre-left {}
+    .sobre-tag {
+      font-family: 'Syne Mono', monospace;
+      font-size: .6rem;
+      letter-spacing: .35em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 24px;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .sobre-tag::before {
+      content: '';
+      width: 28px; height: 1px;
+      background: var(--orange);
+    }
+    .sobre-headline {
+      font-family: 'Fraunces', serif;
+      font-weight: 700;
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      line-height: 1.05;
+      color: var(--white);
+      margin-bottom: 32px;
+    }
+    .sobre-headline em {
+      font-style: italic;
+      font-weight: 100;
+      color: var(--orange);
+    }
+
+    .logo-block {
+      margin-top: 40px;
+      display: flex; align-items: center; gap: 16px;
+      padding: 20px 24px;
+      border: 1px solid rgba(232,114,12,.2);
+      border-radius: 4px;
+      background: rgba(61,26,94,.2);
+    }
+    .logo-block img {
+      width: 56px; height: 56px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    .logo-text {}
+    .logo-name {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--white);
+      letter-spacing: .05em;
+    }
+    .logo-name span { color: var(--orange); }
+    .logo-slogan {
+      font-family: 'Syne Mono', monospace;
+      font-size: .6rem;
+      letter-spacing: .15em;
+      color: var(--grey);
+      margin-top: 3px;
+    }
+
+    .sobre-right {}
+    .sobre-body {
+      font-family: 'Fraunces', serif;
+      font-weight: 300;
+      font-size: 1.1rem;
+      line-height: 1.9;
+      color: var(--grey);
+    }
+    .sobre-body strong { color: var(--white); font-weight: 600; }
+    .sobre-body p + p { margin-top: 20px; }
+
+    .sobre-stats {
+      margin-top: 48px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: rgba(232,114,12,.15);
+      border: 1px solid rgba(232,114,12,.15);
+    }
+    .stat-box {
+      padding: 24px 20px;
+      background: var(--dark);
+      transition: background .25s;
+    }
+    .stat-box:hover { background: rgba(61,26,94,.4); }
+    .stat-num {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 2.8rem;
+      line-height: 1;
+      color: var(--orange);
+    }
+    .stat-lbl {
+      font-family: 'Syne Mono', monospace;
+      font-size: .6rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--grey);
+      margin-top: 6px;
+    }
+
+    /* ── GALLERY ── */
+    .gallery {
+      padding: 0 48px 120px;
+      position: relative;
+    }
+    .gallery-header {
+      display: flex; align-items: flex-end; justify-content: space-between;
+      margin-bottom: 40px;
+      padding-top: 80px;
+      border-top: 1px solid rgba(232,114,12,.15);
+    }
+    .gallery-title {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      text-transform: uppercase;
+      letter-spacing: -.01em;
+      color: var(--white);
+    }
+    .gallery-sub {
+      font-family: 'Syne Mono', monospace;
+      font-size: .6rem;
+      letter-spacing: .25em;
+      text-transform: uppercase;
+      color: var(--grey);
+      padding-bottom: 8px;
+    }
+
+    /* Masonry-style grid */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: repeat(3, 260px);
+      gap: 6px;
+    }
+
+    /* Layout cards */
+    .g { position: relative; overflow: hidden; background: var(--purple); }
+    .g:nth-child(1)  { grid-column: 1/3; grid-row: 1/3; }
+    .g:nth-child(2)  { grid-column: 3; grid-row: 1; }
+    .g:nth-child(3)  { grid-column: 4; grid-row: 1; }
+    .g:nth-child(4)  { grid-column: 3/5; grid-row: 2; }
+    .g:nth-child(5)  { grid-column: 1; grid-row: 3; }
+    .g:nth-child(6)  { grid-column: 2; grid-row: 3; }
+    .g:nth-child(7)  { grid-column: 3; grid-row: 3; }
+    .g:nth-child(8)  { grid-column: 4; grid-row: 3; }
+
+    .g img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: grayscale(15%) contrast(1.02);
+      transition: transform .6s cubic-bezier(.16,1,.3,1), filter .4s;
+    }
+    .g:hover img {
+      transform: scale(1.06);
+      filter: grayscale(0%) contrast(1.05);
+    }
+    .g-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(16,8,32,.6) 0%, transparent 50%);
+      opacity: 0; transition: opacity .3s;
+    }
+    .g:hover .g-overlay { opacity: 1; }
+    .g-idx {
+      position: absolute; top: 12px; left: 14px;
+      font-family: 'Syne Mono', monospace;
+      font-size: .55rem; letter-spacing: .2em;
+      color: rgba(240,235,248,.5);
+      opacity: 0; transition: opacity .3s;
+    }
+    .g:hover .g-idx { opacity: 1; }
+
+    /* Extra photos row */
+    .gallery-extra {
+      margin-top: 6px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 6px;
+    }
+    .g-small {
+      height: 200px;
+      position: relative; overflow: hidden;
+      background: var(--purple);
+    }
+    .g-small img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      filter: grayscale(15%);
+      transition: transform .5s, filter .4s;
+    }
+    .g-small:hover img { transform: scale(1.07); filter: grayscale(0%); }
+
+    /* ── WISHES ── */
+    .wishes {
+      background: var(--purple);
+      padding: 100px 48px;
+      position: relative;
+      overflow: hidden;
+    }
+    .wishes::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 60% 70% at 80% 50%, rgba(232,114,12,.06) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 50% at 20% 30%, rgba(92,45,138,.3) 0%, transparent 55%);
+    }
+    .wishes-inner {
+      position: relative; z-index: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .wishes-left {}
+    .wishes-big {
+      font-family: 'Fraunces', serif;
+      font-weight: 700;
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      line-height: 1.05;
+      color: var(--white);
+      margin-bottom: 24px;
+    }
+    .wishes-big em {
+      font-style: italic;
+      font-weight: 100;
+      color: var(--orange);
+    }
+    .wishes-msg {
+      font-family: 'Fraunces', serif;
+      font-weight: 300;
+      font-style: italic;
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: var(--grey);
+    }
+    .wishes-msg strong { color: var(--orange); font-style: normal; }
+
+    .wishes-right {}
+    .wish-line {
+      display: flex; align-items: center;
+      padding: 20px 0;
+      border-bottom: 1px solid rgba(240,235,248,.08);
+      gap: 20px;
+      transition: padding-left .25s;
+    }
+    .wish-line:first-child { border-top: 1px solid rgba(240,235,248,.08); }
+    .wish-line:hover { padding-left: 12px; }
+    .wish-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--orange);
+      flex-shrink: 0;
+      transition: transform .2s;
+    }
+    .wish-line:hover .wish-dot { transform: scale(1.8); }
+    .wish-txt {
+      font-family: 'Fraunces', serif;
+      font-weight: 300;
+      font-size: 1.1rem;
+      color: var(--grey);
+      transition: color .2s;
+    }
+    .wish-line:hover .wish-txt { color: var(--white); }
+
+    /* ── CLOSING ── */
+    .closing {
+      padding: 120px 48px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .closing::before {
+      content: 'MB';
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 30vw;
+      color: rgba(61,26,94,.15);
+      pointer-events: none;
+      user-select: none;
+      line-height: 1;
+    }
+    .closing-inner { position: relative; z-index: 1; }
+    .closing-tag {
+      font-family: 'Syne Mono', monospace;
+      font-size: .6rem;
+      letter-spacing: .4em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 32px;
+    }
+    .closing-big {
+      font-family: 'Fraunces', serif;
+      font-weight: 700;
+      font-size: clamp(2.5rem, 6vw, 5.5rem);
+      line-height: 1.1;
+      color: var(--white);
+      margin-bottom: 16px;
+    }
+    .closing-big em {
+      font-style: italic;
+      font-weight: 100;
+      display: block;
+      color: var(--orange);
+    }
+    .closing-sub {
+      font-family: 'Fraunces', serif;
+      font-weight: 300;
+      font-style: italic;
+      font-size: 1.1rem;
+      color: var(--grey);
+      max-width: 500px;
+      margin: 0 auto 48px;
+      line-height: 1.8;
+    }
+    .closing-logo {
+      display: inline-flex; align-items: center; gap: 14px;
+      padding: 16px 28px;
+      border: 1px solid rgba(232,114,12,.3);
+      border-radius: 100px;
+      backdrop-filter: blur(8px);
+    }
+    .closing-logo img {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+    }
+    .closing-logo-name {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: .9rem;
+      letter-spacing: .08em;
+      color: var(--white);
+    }
+    .closing-logo-name span { color: var(--orange); }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid rgba(232,114,12,.15);
+      padding: 24px 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    footer p {
+      font-family: 'Syne Mono', monospace;
+      font-size: .6rem;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: rgba(155,143,170,.4);
+    }
+    footer p span { color: var(--orange); }
+
+    /* ── Reveal ── */
+    .reveal { opacity: 0; transform: translateY(40px); transition: opacity .9s ease, transform .9s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      nav { padding: 16px 20px; }
+      .nav-tag { display: none; }
+
+      .hero { grid-template-columns: 1fr; min-height: auto; }
+      .hero-left { padding: 110px 24px 48px; order: 2; }
+      .hero-right { order: 1; height: 65vw; max-height: 380px; }
+      .hero-right::before {
+        background: linear-gradient(to top, var(--dark) 0%, transparent 40%);
+      }
+      .hero-title { font-size: clamp(3rem, 16vw, 5rem); }
+      .hero-desc { max-width: 100%; }
+      .hero-cta { flex-wrap: wrap; gap: 16px; }
+
+      .sobre { grid-template-columns: 1fr; gap: 48px; padding: 72px 24px; }
+      .sobre-stats { grid-template-columns: repeat(3, 1fr); }
+
+      .gallery { padding: 0 20px 80px; }
+      .gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: auto;
+      }
+      .g:nth-child(1),
+      .g:nth-child(2),
+      .g:nth-child(3),
+      .g:nth-child(4),
+      .g:nth-child(5),
+      .g:nth-child(6),
+      .g:nth-child(7),
+      .g:nth-child(8) {
+        grid-column: auto;
+        grid-row: auto;
+        height: 200px;
+      }
+      .gallery-extra { grid-template-columns: repeat(2, 1fr); }
+      .g-small { height: 160px; }
+
+      .wishes { padding: 72px 24px; }
+      .wishes-inner { grid-template-columns: 1fr; gap: 48px; }
+
+      .closing { padding: 80px 24px; }
+      .closing::before { font-size: 50vw; }
+
+      footer { padding: 20px 24px; flex-direction: column; gap: 8px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="cur"></div>
+  <div id="cur-ring"></div>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">
+      <img src="fotos/logo.jpeg" alt="Baloi Pix"/>
+      <span class="nav-brand">Baloi Pix Studio</span>
+    </div>
+    <div class="nav-tag">24 · Mar · 2026</div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-grid-lines"></div>
+
+    <div class="hero-left">
+      <div>
+        <div class="hero-eyebrow">Edição especial · Aniversário</div>
+        <p class="hero-name">Marcos Baloi — Designer Gráfico & CEO</p>
+        <h1 class="hero-title">
+          <span class="line1">Feliz</span>
+          <span class="line2">Aniver</span>
+          <span class="line3">sário</span>
+        </h1>
+        <p class="hero-desc">
+          Para o homem que transforma <strong>visão em arte</strong>,
+          ideias em identidade e pixels em legado.
+          Hoje celebramos tudo o que és.
+        </p>
+        <div class="hero-cta">
+          <div class="hero-date-badge">24 de Março · 2026</div>
+          <div class="hero-scroll">Scroll ↓</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <img src="fotos/foto08.jpeg" alt="Marcos Baloi"/>
+      <div class="hero-counter">© Marcos Baloi · 2026</div>
+    </div>
+  </section>
+
+  <!-- TICKER -->
+  <div class="ticker">
+    <div class="ticker-track">
+      <span class="ticker-item">Marcos Baloi</span>
+      <span class="ticker-item accent">✦</span>
+      <span class="ticker-item">Designer Gráfico</span>
+      <span class="ticker-item accent">✦</span>
+      <span class="ticker-item">CEO · Baloi Pix</span>
+      <span class="ticker-item accent">✦</span>
+      <span class="ticker-item">Em Busca da Evolução</span>
+      <span class="ticker-item accent">✦</span>
+      <span class="ticker-item">Feliz Aniversário</span>
+      <span class="ticker-item accent">✦</span>
+      <span class="ticker-item">24 de Março</span>
+      <span class="ticker-item accent">✦</span>
+      <span class="ticker-item">Marcos Baloi</span>
+      <span class="ticker-item accent">✦</span>
+      <span class="ticker-item">Designer Gráfico</span>
+      <span class="ticker-item accent">✦</span>
+      <span class="ticker-item">CEO · Baloi Pix</span>
+      <span class="ticker-item accent">✦</span>
+      <span class="ticker-item">Em Busca da Evolução</span>
+      <span class="ticker-item accent">✦</span>
+      <span class="ticker-item">Feliz Aniversário</span>
+      <span class="ticker-item accent">✦</span>
+      <span class="ticker-item">24 de Março</span>
+      <span class="ticker-item accent">✦</span>
+    </div>
+  </div>
+
+  <!-- SOBRE -->
+  <section class="sobre reveal">
+    <div class="sobre-left">
+      <div class="sobre-tag">Sobre o homenageado</div>
+      <h2 class="sobre-headline">
+        Arte,<br>
+        <em>Visão</em><br>
+        & Propósito
+      </h2>
+      <div class="logo-block">
+        <img src="fotos/logo.jpeg" alt="Baloi Pix"/>
+        <div class="logo-text">
+          <div class="logo-name">BALOI<span>PIX</span></div>
+          <div class="logo-slogan">Em busca da evolução</div>
+        </div>
+      </div>
+    </div>
+    <div class="sobre-right">
+      <div class="sobre-body">
+        <p>
+          Há pessoas que nascem com um dom especial — a capacidade de ver o mundo
+          de forma diferente, de encontrar beleza onde outros vêem apenas o óbvio,
+          de transformar uma ideia abstracta numa obra que comunica, que emociona,
+          que perdura. <strong>Marcos Baloi</strong> é esse tipo de pessoa.
+        </p>
+        <p>
+          Como <strong>designer gráfico e CEO da Baloi Pix</strong>, o Marcos não
+          é apenas alguém que cria — é alguém que lidera pelo exemplo, que constrói
+          uma visão com consistência e paixão, e que prova todos os dias que
+          <strong>o design é muito mais do que estética: é estratégia, é identidade,
+          é evolução</strong>.
+        </p>
+        <p>
+          Hoje, no seu aniversário, celebramos não apenas mais um ano de vida,
+          mas tudo o que esse ano representou: crescimento, coragem e criatividade
+          sem limites. Que o próximo capítulo seja ainda mais grandioso.
+        </p>
+      </div>
+      <div class="sobre-stats">
+        <div class="stat-box">
+          <div class="stat-num">∞</div>
+          <div class="stat-lbl">Criatividade</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">01</div>
+          <div class="stat-lbl">Baloi Pix CEO</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-num">100%</div>
+          <div class="stat-lbl">Dedicação</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section class="gallery reveal">
+    <div class="gallery-header">
+      <h2 class="gallery-title">Galeria</h2>
+      <div class="gallery-sub">// Momentos que definem quem és //</div>
+    </div>
+
+    <div class="gallery-grid">
+      <div class="g"><img src="fotos/foto03.jpeg" alt=""/><div class="g-overlay"></div><span class="g-idx">01</span></div>
+      <div class="g"><img src="fotos/foto04.jpeg" alt=""/><div class="g-overlay"></div><span class="g-idx">02</span></div>
+      <div class="g"><img src="fotos/foto05.jpeg" alt=""/><div class="g-overlay"></div><span class="g-idx">03</span></div>
+      <div class="g"><img src="fotos/foto06.jpeg" alt=""/><div class="g-overlay"></div><span class="g-idx">04</span></div>
+      <div class="g"><img src="fotos/foto07.jpeg" alt=""/><div class="g-overlay"></div><span class="g-idx">05</span></div>
+      <div class="g"><img src="fotos/foto08.jpeg" alt=""/><div class="g-overlay"></div><span class="g-idx">06</span></div>
+      <div class="g"><img src="fotos/foto10.jpeg" alt=""/><div class="g-overlay"></div><span class="g-idx">07</span></div>
+      <div class="g"><img src="fotos/foto11.jpeg" alt=""/><div class="g-overlay"></div><span class="g-idx">08</span></div>
+    </div>
+
+    <div class="gallery-extra">
+      <div class="g-small"><img src="fotos/foto12.jpeg" alt=""/></div>
+      <div class="g-small"><img src="fotos/foto13.jpeg" alt=""/></div>
+      <div class="g-small"><img src="fotos/foto02.jpeg" alt=""/></div>
+      <div class="g-small"><img src="fotos/foto01.jpeg" alt=""/></div>
+    </div>
+  </section>
+
+  <!-- WISHES -->
+  <section class="wishes reveal">
+    <div class="wishes-inner">
+      <div class="wishes-left">
+        <h2 class="wishes-big">
+          Votos de<br>
+          <em>Grandeza</em><br>
+          para ti
+        </h2>
+        <p class="wishes-msg">
+          Cada pixel que colocas no mundo carrega a tua assinatura.
+          Que este novo ano continue a ser desenhado com
+          <strong>intenção, beleza e propósito</strong>.
+        </p>
+      </div>
+      <div class="wishes-right">
+        <div class="wish-line"><div class="wish-dot"></div><div class="wish-txt">Saúde para continuar a criar</div></div>
+        <div class="wish-line"><div class="wish-dot"></div><div class="wish-txt">Projetos que te orgulhem</div></div>
+        <div class="wish-line"><div class="wish-dot"></div><div class="wish-txt">Clientes que valorizam a tua arte</div></div>
+        <div class="wish-line"><div class="wish-dot"></div><div class="wish-txt">Crescimento da Baloi Pix</div></div>
+        <div class="wish-line"><div class="wish-dot"></div><div class="wish-txt">Inspiração todos os dias</div></div>
+        <div class="wish-line"><div class="wish-dot"></div><div class="wish-txt">Amor e alegria em abundância</div></div>
+        <div class="wish-line"><div class="wish-dot"></div><div class="wish-txt">Sonhos que se tornam realidade</div></div>
+        <div class="wish-line"><div class="wish-dot"></div><div class="wish-txt">Reconhecimento pelo teu talento</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CLOSING -->
+  <section class="closing reveal">
+    <div class="closing-inner">
+      <div class="closing-tag">// Com todo o carinho //</div>
+      <h2 class="closing-big">
+        Marcos Baloi,
+        <em>que seja épico.</em>
+      </h2>
+      <p class="closing-sub">
+        Designers como tu não criam apenas imagens —
+        criam experiências, criam mundos, criam o futuro.
+        Continua sempre em busca da evolução.
+      </p>
+      <div class="closing-logo">
+        <img src="fotos/logo.jpeg" alt="Baloi Pix"/>
+        <div class="closing-logo-name">BALOI<span>PIX</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2026 · Feliz Aniversário <span>Marcos Baloi</span></p>
+    <p>Baloi Pix · <span>Em busca da evolução</span></p>
+    <p>24 de Março · <span>2026</span></p>
+  </footer>
+
+  <script>
+    // ── Cursor ──
+    const cur = document.getElementById('cur');
+    const ring = document.getElementById('cur-ring');
+    let rx = 0, ry = 0, mx = 0, my = 0;
+    document.addEventListener('mousemove', e => {
+      mx = e.clientX; my = e.clientY;
+      cur.style.left = mx + 'px'; cur.style.top = my + 'px';
+    });
+    setInterval(() => {
+      rx += (mx - rx) * .12; ry += (my - ry) * .12;
+      ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+    }, 16);
+    document.querySelectorAll('.g, .g-small, .wish-line, .stat-box').forEach(el => {
+      el.addEventListener('mouseenter', () => {
+        cur.style.width = '24px'; cur.style.height = '24px';
+        ring.style.width = '64px'; ring.style.height = '64px';
+        ring.style.borderColor = 'rgba(232,114,12,.6)';
+      });
+      el.addEventListener('mouseleave', () => {
+        cur.style.width = '10px'; cur.style.height = '10px';
+        ring.style.width = '40px'; ring.style.height = '40px';
+        ring.style.borderColor = 'rgba(232,114,12,.4)';
+      });
+    });
+
+    // ── Scroll reveal ──
+    const obs = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(r => obs.observe(r));
+
+    // ── Parallax subtle on hero photo ──
+    const heroImg = document.querySelector('.hero-right img');
+    window.addEventListener('scroll', () => {
+      const y = window.scrollY;
+      if (heroImg && y < window.innerHeight) {
+        heroImg.style.transform = `translateY(${y * 0.15}px)`;
+      }
+    });
+  </script>
+</body>
+</html>
